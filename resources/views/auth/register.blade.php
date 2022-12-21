@@ -27,6 +27,7 @@
                         </div>
                         <div class="mb-4 form-group">
                             <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                            <input type="checkbox" name="" id="showpwd" onclick="myFunction()">
                             <span class="invalid-feedback"></span>
                         </div>
                         <div class="mb-4 form-group">
@@ -49,7 +50,6 @@
         </div>
     </div>
 </div>
-</div>
 
 
 
@@ -61,8 +61,19 @@
 
 @section('scripts')
 <script>
+    function myFunction() {
+        const pwd = document.querySelector("#password")
+        const checker = document.querySelector("#showpwd");
+        if (checker.checked === true) {
+            pwd.type = "text";
+        } else {
+            pwd.type = "password"
+        }
+    }
+</script>
+<script>
     $(document).ready(function() {
-        $("#register_form").submit(function(e){
+        $("#register_form").submit(function(e) {
             e.preventDefault();
 
             $("#register_btn").prop('disabled', true);
@@ -72,12 +83,13 @@
                 url: "{{ route('register.user') }}",
                 method: "post",
                 data: $(this).serialize(),
-                // dataType: 'json',
-                success: function(res){
+                dataType: 'json',
+                success: function(res) {
                     console.log(res)
                 }
             });
         });
     });
+
 </script>
 @endsection
